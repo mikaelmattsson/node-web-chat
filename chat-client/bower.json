@@ -1,0 +1,21 @@
+{
+  "name": "game",
+  "description": "Boilerplate with gulp, webpack, babel and lots of goodies.",
+  "main": "",
+  "authors": [
+    "Magnus Bergman <hello@magnus.sexy>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/genesishq/genesis",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "socket.io": "~1.3.7"
+  }
+}

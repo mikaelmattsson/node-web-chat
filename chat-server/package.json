@@ -1,0 +1,15 @@
+{
+  "name": "chat-server",
+  "version": "0.0.1",
+  "description": "game server using socket.io",
+  "scripts": {
+    "start": "babel-node ./index.js",
+    "dev": "nodemon --exec ./node_modules/babel/bin/babel-node.js ./index.js"
+  },
+  "dependencies": {
+    "babel": "^5.8.34",
+    "express": "^4.10.2",
+    "nodemon": "^1.8.1",
+    "socket.io": "^1.3.7"
+  }
+}
