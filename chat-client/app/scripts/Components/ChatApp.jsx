@@ -10,12 +10,11 @@
 import React, { Component } from 'react'
 import Radium from 'radium'
 
-import Store from '../stores'
-
+//import Store from '../stores'
 import Form from './Form'
-import List from './List'
+import MessageList from './MessageList'
 import Footer from './Footer'
-
+import serverEvents from '../Events/ServerEvents'
 
 /**
  * This is the TodoApp component class, it operates as a "Controller-View".
@@ -30,53 +29,41 @@ export default class ChatApp extends Component {
      * Initiate and set state for the component.
      *
      * @param {object} props
-     * @return void
      */
     constructor(props) {
-        super(props)
+        super(props);
 
-        this.state = this.loadState();
+        this.state = {
+            messages: []
+        };
 
-        this.onChange = this.onChange.bind(this)
-    }
-
-    /**
-     * Retrieve the current item data from the Store.
-     *
-     * @return {object}
-     */
-    loadState() {
-        return {
-            allItems: Store.getAll()
-        }
+        this.onNewMessage = this.onNewMessage.bind(this)
     }
 
     /**
      * Add event listener when component is mounted.
-     *
-     * @return void
      */
     componentDidMount() {
-        Store.addChangeListener(this.onChange)
+        serverEvents.on('new_message', this.onNewMessage);
     }
 
     /**
      * Remove event listener when component will unmount.
-     *
-     * @return void
      */
     componentWillUnmount() {
-        Store.removeChangeListener(this.onChange)
+        serverEvents.removeListener('new_message', this.onNewMessage);
     }
 
     /**
      * Event handler that updates the state when the 'change' event is
      * triggered from the store.
-     *
-     * @return void
      */
-    onChange() {
-        this.setState(this.loadState())
+    onNewMessage(data) {
+        const messages = this.state.messages;
+        messages.push(data);
+        this.setState({
+            messages: messages
+        });
     }
 
     /**
@@ -85,11 +72,11 @@ export default class ChatApp extends Component {
      * @return {object}
      */
     render() {
-        const { allItems } = this.state
+        const { messages } = this.state;
 
         return (
             <main style={styles.base}>
-                <List allItems={allItems}/>
+                <MessageList messages={messages}/>
                 <Form />
                 <Footer />
             </main>
@@ -101,7 +88,7 @@ export default class ChatApp extends Component {
 const fadeIn = Radium.keyframes({
     from: {opacity: 0},
     to: {opacity: 1}
-})
+});
 
 const styles = {
     base: {
@@ -115,4 +102,4 @@ const styles = {
         '@media (max-width: 40em)': {padding: '0 5%'},
         '@media (max-width: 32em)': {padding: '0 1em'}
     }
-}
+};

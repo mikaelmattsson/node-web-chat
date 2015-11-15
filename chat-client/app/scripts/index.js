@@ -1,4 +1,4 @@
-import App from './App'
+import app from './App'
 
 /**
  * This is the application index file.
@@ -6,4 +6,4 @@ import App from './App'
  * @author Mikael Mattsson
  */
 
-App.main()
+app.main();

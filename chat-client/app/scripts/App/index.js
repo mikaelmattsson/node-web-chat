@@ -4,23 +4,21 @@ import { render } from 'react-dom'
 import { Router, Route } from 'react-router'
 
 import history from '../history'
-
 import ChatApp from '../Components/ChatApp'
 
-export default class App {
+class App {
 
     /**
      * Initiate the app.
      */
-    static main() {
-        App.client = new Client();
+    main() {
         App.renderRoot()
     }
 
     /**
      * Render the app with react-router.
      */
-    static renderRoot(){
+    static renderRoot() {
         const root = document.getElementById('root');
         render((
             <Router history={history}>
@@ -30,3 +28,5 @@ export default class App {
     }
 
 }
+
+export default new App();

@@ -10,15 +10,14 @@
 import React, { Component } from 'react'
 import Radium from 'radium'
 
-import Actions from '../Actions/'
-
-import TextInput from './TextInput.jsx'
+import TextInput from './TextInput'
+import client from '../Network/Client'
 
 /**
  * This is the TodoForm component class.
  */
 @Radium
-export default class TodoForm extends Component {
+export default class Form extends Component {
 
     /**
      * Event handler that creates a new todo item.
@@ -26,9 +25,9 @@ export default class TodoForm extends Component {
      * @param {string} text
      * @return void
      */
-    onSave(text) {
+    onSubmit(text) {
         if (text.trim()) {
-            Actions.create(text)
+            client.emitMessage(text.trim());
         }
     }
 
@@ -41,7 +40,7 @@ export default class TodoForm extends Component {
         return (
             <header>
                 <h2>Chat</h2>
-                <TextInput placeholder='What would you like to say?' onSave={this.onSave}/>
+                <TextInput placeholder='What would you like to say?' onSubmit={this.onSubmit}/>
             </header>
         )
     }

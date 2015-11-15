@@ -12,39 +12,27 @@ import Radium from 'radium'
 
 import * as colors from '../utils/colors'
 
-import Actions from '../Actions'
-
 /**
  * This is the List component class.
  */
 @Radium
-export default class List extends Component {
-
-    /**
-     * Initiate and set state for the component.
-     *
-     * @param {object} props
-     * @return void
-     */
-    constructor(props) {
-        super(props)
-    }
-
+export default class MessageList extends Component {
 
     /**
      * Render react component.
      * @return {object}
      */
     render() {
-        const { allItems } = this.props
+        const { messages } = this.props;
+        const rows = [];
 
-        if (Object.keys(this.props.allItems).length < 1) return null
+        if (Object.keys(this.props.messages).length < 1) {
+            return null;
+        }
 
-        const rows = []
-
-        for (const key in allItems) {
-            if (allItems.hasOwnProperty(key)) {
-                rows.push(<li key={key}>{allItems[key].text}</li>)
+        for (const key in messages) {
+            if (messages.hasOwnProperty(key)) {
+                rows.push(<li key={key}>{messages[key]}</li>)
             }
         }
 

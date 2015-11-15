@@ -30,9 +30,9 @@ export default class TextInput extends Component {
      */
     static propTypes = {
         placeholder: PropTypes.string,
-        onSave: PropTypes.func.isRequired,
+        onSubmit: PropTypes.func.isRequired,
         value: PropTypes.string
-    }
+    };
 
     /**
      * Set default values for component properties.
@@ -42,7 +42,7 @@ export default class TextInput extends Component {
     static defaultProps = {
         placeholder: '',
         value: ''
-    }
+    };
 
     /**
      * Initiate and set state for the component.
@@ -52,7 +52,7 @@ export default class TextInput extends Component {
      * @return void
      */
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             value: props.value
@@ -94,9 +94,9 @@ export default class TextInput extends Component {
      */
     send() {
         const { value } = this.state
-        const { onSave } = this.props
+        const { onSubmit } = this.props
 
-        onSave(value)
+        onSubmit(value)
 
         this.setState({
             value: ''
