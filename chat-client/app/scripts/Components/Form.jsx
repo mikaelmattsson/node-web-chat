@@ -20,30 +20,29 @@ import TextInput from './TextInput.jsx'
 @Radium
 export default class TodoForm extends Component {
 
-  /**
-   * Event handler that creates a new todo item.
-   *
-   * @param {string} text
-   *
-   * @return void
-   */
-  onSave (text) {
-    if (text.trim()) {
-      Actions.create(text)
+    /**
+     * Event handler that creates a new todo item.
+     *
+     * @param {string} text
+     * @return void
+     */
+    onSave(text) {
+        if (text.trim()) {
+            Actions.create(text)
+        }
     }
-  }
 
-  /**
-   * Render react component.
-   *
-   * @return {object}
-   */
-  render () {
-    return (
-      <header>
-        <h2>Chat</h2>
-        <TextInput placeholder='What would you like to say?' onSave={this.onSave} />
-      </header>
-    )
-  }
+    /**
+     * Render react component.
+     *
+     * @return {object}
+     */
+    render() {
+        return (
+            <header>
+                <h2>Chat</h2>
+                <TextInput placeholder='What would you like to say?' onSave={this.onSave}/>
+            </header>
+        )
+    }
 }

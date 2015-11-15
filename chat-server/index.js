@@ -1,6 +1,6 @@
 "use strict";
 
-import Server from './app/Server.js'
+import Server from './app/Server'
 
 new Server();
 

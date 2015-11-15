@@ -7,13 +7,10 @@
  * file that was distributed with this source code.
  */
 
-/**
- * These are constants used throughout the application.
- *
- * @author Magnus Bergman <hello@magnus.sexy>
- */
+export default class Events {
 
-/**
- * @const CREATE
- */
-export const CREATE = 'CREATE'
+    static handleMessage(message, socket, server) {
+        server.emit('message', message) // Send to everyone
+    }
+
+}

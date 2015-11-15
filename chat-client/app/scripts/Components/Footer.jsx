@@ -16,24 +16,26 @@ import Radium from 'radium'
 @Radium
 export default class Footer extends Component {
 
-  /**
-   * Render react component.
-   *
-   * @return {object}
-   */
-  render () {
-    return (
-      <footer style={styles.base}>
-        <p><small>Made with ♥ by <a href='https://mikael.ninja'>Mikael Mattsson</a></small></p>
-      </footer>
-    )
-  }
+    /**
+     * Render react component.
+     *
+     * @return {object}
+     */
+    render() {
+        return (
+            <footer style={styles.base}>
+                <p>
+                    <small>Made with ♥ by <a href='http://mikael.ninja'>Mikael Mattsson</a></small>
+                </p>
+            </footer>
+        )
+    }
 
 }
 
 const styles = {
-  base: {
-    marginTop: '2em',
-    textAlign: 'center'
-  }
+    base: {
+        marginTop: '2em',
+        textAlign: 'center'
+    }
 }

@@ -39,16 +39,16 @@ const items = utils.readFromStorage('items') || {}
  *
  * @return void
  */
-function create (text) {
-  const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36)
+function create(text) {
+    const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36)
 
-  items[id] = {
-    id: id,
-    complete: false,
-    text: text
-  }
+    items[id] = {
+        id: id,
+        complete: false,
+        text: text
+    }
 
-  utils.writeToStorage('items', items)
+    utils.writeToStorage('items', items)
 }
 
 /**
@@ -59,10 +59,10 @@ function create (text) {
  *
  * @return void
  */
-function update (id, updates) {
-  items[id] = Object.assign({}, items[id], updates)
+function update(id, updates) {
+    items[id] = Object.assign({}, items[id], updates)
 
-  utils.writeToStorage('items', items)
+    utils.writeToStorage('items', items)
 }
 
 /**
@@ -73,12 +73,12 @@ function update (id, updates) {
  *
  * @return void
  */
-function updateAll (updates) {
-  for (let id in items) {
-    if (items.hasOwnProperty(id)) {
-      update(id, updates)
+function updateAll(updates) {
+    for (let id in items) {
+        if (items.hasOwnProperty(id)) {
+            update(id, updates)
+        }
     }
-  }
 }
 
 /**
@@ -88,10 +88,10 @@ function updateAll (updates) {
  *
  * @return void
  */
-function destroy (id) {
-  delete items[id]
+function destroy(id) {
+    delete items[id]
 
-  utils.writeToStorage('items', items)
+    utils.writeToStorage('items', items)
 }
 
 /**
@@ -99,12 +99,12 @@ function destroy (id) {
  *
  * @return void
  */
-function destroyCompleted () {
-  for (let id in items) {
-    if (items.hasOwnProperty(id) && items[id].complete) {
-      destroy(id)
+function destroyCompleted() {
+    for (let id in items) {
+        if (items.hasOwnProperty(id) && items[id].complete) {
+            destroy(id)
+        }
     }
-  }
 }
 
 /**
@@ -113,59 +113,59 @@ function destroyCompleted () {
  */
 const Store = Object.assign({}, EventEmitter.prototype, {
 
-  /**
-   * Tests whether all the remaining items are marked as completed.
-   *
-   * @return {boolean}
-   */
-  areAllComplete () {
-    for (let id in items) {
-      if (items.hasOwnProperty(id) && !items[id].complete) {
-        return false
-      }
+    /**
+     * Tests whether all the remaining items are marked as completed.
+     *
+     * @return {boolean}
+     */
+    areAllComplete () {
+        for (let id in items) {
+            if (items.hasOwnProperty(id) && !items[id].complete) {
+                return false
+            }
+        }
+        return true
+    },
+
+    /**
+     * Get the entire collection.
+     *
+     * @return {object}
+     */
+    getAll () {
+        return items
+    },
+
+    /**
+     * Emit a change event to update the state of each listener.
+     *
+     * @return void
+     */
+    emitChange () {
+        this.emit(CHANGE_EVENT)
+    },
+
+    /**
+     * Add listener to the change event.
+     *
+     * @param {function} callback
+     *
+     * @return void
+     */
+    addChangeListener (callback) {
+        this.on(CHANGE_EVENT, callback)
+    },
+
+    /**
+     * Remove listener from listening to the change event.
+     *
+     * @param {function} callback
+     *
+     * @return void
+     */
+    removeChangeListener (callback) {
+        this.removeListener(CHANGE_EVENT, callback)
     }
-    return true
-  },
-
-  /**
-   * Get the entire collection.
-   *
-   * @return {object}
-   */
-  getAll () {
-    return items
-  },
-
-  /**
-   * Emit a change event to update the state of each listener.
-   *
-   * @return void
-   */
-  emitChange () {
-    this.emit(CHANGE_EVENT)
-  },
-
-  /**
-   * Add listener to the change event.
-   *
-   * @param {function} callback
-   *
-   * @return void
-   */
-  addChangeListener (callback) {
-    this.on(CHANGE_EVENT, callback)
-  },
-
-  /**
-   * Remove listener from listening to the change event.
-   *
-   * @param {function} callback
-   *
-   * @return void
-   */
-  removeChangeListener (callback) {
-    this.removeListener(CHANGE_EVENT, callback)
-  }
 })
 
 /**
@@ -175,58 +175,21 @@ const Store = Object.assign({}, EventEmitter.prototype, {
  *
  * @return void
  */
-function actionsHandler (action) {
-  let text = null
+function actionsHandler(action) {
+    let text = null
 
-  switch (action.actionType) {
-    case constants.CREATE:
-      text = action.text.trim()
-      if (text !== '') {
-        create(text)
-        Store.emitChange()
-      }
-      break
+    switch (action.actionType) {
+        case constants.CREATE:
+            text = action.text.trim()
+            if (text !== '') {
+                create(text)
+                Store.emitChange()
+            }
+            break
 
-    case constants.TOGGLE_COMPLETE_ALL:
-      if (Store.areAllComplete()) {
-        updateAll({complete: false})
-      } else {
-        updateAll({complete: true})
-      }
-      Store.emitChange()
-      break
-
-    case constants.UNDO_COMPLETE:
-      update(action.id, {complete: false})
-      Store.emitChange()
-      break
-
-    case constants.COMPLETE:
-      update(action.id, {complete: true})
-      Store.emitChange()
-      break
-
-    case constants.UPDATE_TEXT:
-      text = action.text.trim()
-      if (text !== '') {
-        update(action.id, {text: text})
-        Store.emitChange()
-      }
-      break
-
-    case constants.DESTROY:
-      destroy(action.id)
-      Store.emitChange()
-      break
-
-    case constants.DESTROY_COMPLETED:
-      destroyCompleted()
-      Store.emitChange()
-      break
-
-    default:
-      // no op
-  }
+        default:
+        // no op
+    }
 }
 
 /**

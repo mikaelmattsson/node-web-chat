@@ -17,8 +17,6 @@ import List from './List'
 import Footer from './Footer'
 
 
-
-
 /**
  * This is the TodoApp component class, it operates as a "Controller-View".
  * It listens for changes in the Store and passes the new data to its children.
@@ -32,7 +30,6 @@ export default class ChatApp extends Component {
      * Initiate and set state for the component.
      *
      * @param {object} props
-     *
      * @return void
      */
     constructor(props) {
@@ -50,8 +47,7 @@ export default class ChatApp extends Component {
      */
     loadState() {
         return {
-            allItems: Store.getAll(),
-            areAllComplete: Store.areAllComplete()
+            allItems: Store.getAll()
         }
     }
 
@@ -89,7 +85,7 @@ export default class ChatApp extends Component {
      * @return {object}
      */
     render() {
-        const { allItems, areAllComplete } = this.state
+        const { allItems } = this.state
 
         return (
             <main style={styles.base}>
