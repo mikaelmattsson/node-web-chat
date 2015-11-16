@@ -1,8 +1,6 @@
 Server-Client Chat
 =================
-## Made with node, sockets.io, react, ECMAScript 6, and webpack. Built using the [Genesis](https://github.com/genesishq/genesis) boilerplate.
-
-> An example of the generated output can be viewed [here](https://magnus.sexy/genesis).
+### Made with node, sockets.io and react. Built using the [Genesis](https://github.com/genesishq/genesis) boilerplate.
 
 #### [Genesis](https://github.com/genesishq/genesis) includes the following tools, tasks, and workflows:
 
