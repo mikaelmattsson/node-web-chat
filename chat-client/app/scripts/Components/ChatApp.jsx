@@ -14,7 +14,7 @@ import Radium from 'radium'
 import Form from './Form'
 import MessageList from './MessageList'
 import Footer from './Footer'
-import serverEvents from '../Events/ServerEvents'
+import Receiver from '../Network/Receiver'
 
 /**
  * This is the TodoApp component class, it operates as a "Controller-View".
@@ -44,14 +44,14 @@ export default class ChatApp extends Component {
      * Add event listener when component is mounted.
      */
     componentDidMount() {
-        serverEvents.on('new_message', this.onNewMessage);
+        Receiver.onMessage(this.onNewMessage);
     }
 
     /**
      * Remove event listener when component will unmount.
      */
     componentWillUnmount() {
-        serverEvents.removeListener('new_message', this.onNewMessage);
+        Receiver.removeMessageListener(this.onNewMessage);
     }
 
     /**
@@ -59,6 +59,7 @@ export default class ChatApp extends Component {
      * triggered from the store.
      */
     onNewMessage(data) {
+        console.log('onNewMessage');
         const messages = this.state.messages;
         messages.push(data);
         this.setState({

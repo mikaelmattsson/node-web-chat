@@ -11,7 +11,7 @@ import React, { Component } from 'react'
 import Radium from 'radium'
 
 import TextInput from './TextInput'
-import client from '../Network/Client'
+import Sender from '../Network/Sender'
 
 /**
  * This is the TodoForm component class.
@@ -27,7 +27,7 @@ export default class Form extends Component {
      */
     onSubmit(text) {
         if (text.trim()) {
-            client.emitMessage(text.trim());
+            Sender.sendMessage(text.trim());
         }
     }
 
