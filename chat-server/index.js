@@ -1,3 +1,5 @@
 "use strict";
 
-import server from './app/Controller/Server'
+import app from './src/App'
+
+app.main();

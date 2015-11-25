@@ -37,33 +37,48 @@ export default class ChatApp extends Component {
             messages: []
         };
 
-        this.onNewMessage = this.onNewMessage.bind(this)
+        this.onMessage = this.onMessage.bind(this);
+        this.onJoinedRoom = this.onJoinedRoom.bind(this);
     }
 
     /**
      * Add event listener when component is mounted.
      */
     componentDidMount() {
-        Receiver.onMessage(this.onNewMessage);
+        Receiver.onMessage(this.onMessage);
+        Receiver.onJoinedRoom(this.onJoinedRoom);
     }
 
     /**
      * Remove event listener when component will unmount.
      */
     componentWillUnmount() {
-        Receiver.removeMessageListener(this.onNewMessage);
+        Receiver.removeMessageListener(this.onMessage);
+        Receiver.removeJoinedRoomListener(this.onJoinedRoom);
     }
 
     /**
      * Event handler that updates the state when the 'change' event is
      * triggered from the store.
+     *
+     * @param data
      */
-    onNewMessage(data) {
-        console.log('onNewMessage');
+    onMessage(data) {
+        console.log('onMessage');
         const messages = this.state.messages;
         messages.push(data);
         this.setState({
             messages: messages
+        });
+    }
+
+    /**
+     *
+     * @param data
+     */
+    onJoinedRoom(data){
+        this.setState({
+            messages: data.messages
         });
     }
 

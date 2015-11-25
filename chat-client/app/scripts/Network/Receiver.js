@@ -3,12 +3,19 @@ import connection from './Connection'
 export default class Receiver {
 
     static onMessage(func) {
-        console.log('Receiver.onMessage');
-        connection.io.on('message', func);
+        connection.io.on('chat:message', func);
     }
 
-    static removeMessageListener() {
-        connection.io.removeEventListener('message', func);
+    static removeMessageListener(func) {
+        connection.io.removeEventListener('chat:message', func);
+    }
+
+    static onJoinedRoom(func) {
+        connection.io.on('chat:joinedRoom', func);
+    }
+
+    static removeJoinedRoomListener(func) {
+        connection.io.removeEventListener('chat:joinedRoom', func);
     }
 
 }
