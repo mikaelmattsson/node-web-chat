@@ -1,4 +1,3 @@
-import Sender from '../Network/Sender'
 
 export default class ChatRoom {
 
@@ -16,8 +15,8 @@ export default class ChatRoom {
      * @param user
      */
     addUser(user) {
-        this.emit('chat:userJoined', user.id);
-        user.emit('chat:joinedRoom', {
+        this.send('chat:userJoined', user.id);
+        user.send('chat:joinedRoom', {
             'messages': this.getMessages(10),
             'users': this.getUserList()
         });
@@ -29,9 +28,9 @@ export default class ChatRoom {
      *
      * @param message
      */
-    emitMessage(message) {
+    sendMessage(message) {
         this._messages.push(message);
-        this.emit('chat:message', message)
+        this.send('chat:message', message)
     }
 
     /**
@@ -40,7 +39,7 @@ export default class ChatRoom {
      * @param user
      */
     removeUser(user) {
-        this.emit('chat:userLeft', user.id);
+        this.send('chat:userLeft', user.id);
         delete this._users[user.id];
     }
 
@@ -50,10 +49,10 @@ export default class ChatRoom {
      * @param key
      * @param data
      */
-    emit(key, data) {
+    send(key, data) {
         for (var id in this._users) {
             var user = this._users[id];
-            user.emit(key, data);
+            user.send(key, data);
         }
     }
 

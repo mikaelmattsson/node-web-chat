@@ -1,5 +1,3 @@
-import Sender from '../Network/Sender'
-
 export default class User {
 
     /**
@@ -23,8 +21,8 @@ export default class User {
      */
     onMessage(message) {
         console.log(this.id + ': ' + message);
-        if (this.currentChatRoom){
-            this.currentChatRoom.emitMessage(message);
+        if (this.currentChatRoom) {
+            this.currentChatRoom.sendMessage(message);
         }
     }
 
@@ -41,7 +39,7 @@ export default class User {
      * @param key
      * @param data
      */
-    emit(key, data){
+    send(key, data) {
         this._socket.emit(key, data);
     }
 
@@ -51,7 +49,7 @@ export default class User {
      * @param key
      * @param method
      */
-    on(key, method){
+    onReceive(key, method) {
         this._socket.on(key, method);
     }
 
@@ -61,7 +59,7 @@ export default class User {
      * @param key
      * @param method
      */
-    removeEventListener(key, method){
+    removeEventListener(key, method) {
         this._socket.removeEventListener(key, method);
     }
 }

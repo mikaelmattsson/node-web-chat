@@ -2,13 +2,13 @@ import io from 'socket.io-client'
 
 import serverEvents from '../Events/ServerEvents'
 
-class Connection{
+class Connection {
     constructor() {
-        var host = window.location.protocol + '//' + window.location.hostname;
-        this.io = io.connect(host + ':4330');
+        let host = window.location.protocol + '//' + window.location.hostname;
+        this._io = io.connect(host + ':4330');
 
-        this.io.on('connect', this.onConnect.bind(this));
-        this.io.on('disconnect', this.onDisconnect.bind(this));
+        this.on('connect', this.onConnect.bind(this));
+        this.on('disconnect', this.onDisconnect.bind(this));
     }
 
     onConnect() {
@@ -17,6 +17,18 @@ class Connection{
 
     onDisconnect() {
         console.log('disconnect');
+    }
+
+    emit(key, func) {
+        this._io.emit(key, func);
+    }
+
+    on(key, func) {
+        this._io.on(key, func);
+    }
+
+    removeEventListener(key, func) {
+        this._io.removeEventListener(key, func);
     }
 
 }
